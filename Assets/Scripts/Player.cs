@@ -8,6 +8,7 @@ public class Player : MovingObject
     public int wallDamage = 1;
     public int pointsPerFood = 10;
     public int pointsPerSoda = 20;
+    public int pointsPerAttack = 5;
     public float restartLevelDelay = 1f;
     public Text foodText;
     public AudioClip moveSound1;
@@ -17,6 +18,7 @@ public class Player : MovingObject
     public AudioClip drinkSound1;
     public AudioClip drinkSound2;
     public AudioClip gameOverSound;
+    public AudioClip playerAttackSound;
 
     private Animator animator;
     private int food;
@@ -47,12 +49,24 @@ public class Player : MovingObject
 
       horizontal = (int) Input.GetAxisRaw("Horizontal");
       vertical = (int) Input.GetAxisRaw("Vertical");
-
+      if(Input.GetKeyDown(KeyCode.Space))
+      {
+        PlayerAttack();
+      }
       if (horizontal != 0)
         vertical = 0;
 
       if(horizontal != 0 || vertical != 0)
         AttemptMove<Wall> (horizontal, vertical);
+    }
+    void PlayerAttack()
+    {
+      food -= pointsPerAttack;
+      foodText.text = "-" + pointsPerAttack + " Food: " + food;
+      SoundManager.instance.PlaySingle(playerAttackSound);
+      animator.SetTrigger("playerAttack");
+      CheckIfGameOver();
+      GameManager.instance.playersTurn = false;
     }
     protected override void AttemptMove<T> (int xDir, int yDir)
     {
