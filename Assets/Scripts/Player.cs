@@ -9,6 +9,8 @@ public class Player : MovingObject
     public int pointsPerFood = 10;
     public int pointsPerSoda = 20;
     public int pointsPerAttack = 5;
+    public bool playerAttacking = true;
+    public int attackingCounter = 0;
     public float restartLevelDelay = 1f;
     public Text foodText;
     public AudioClip moveSound1;
@@ -52,6 +54,19 @@ public class Player : MovingObject
       if(Input.GetKeyDown(KeyCode.Space))
       {
         PlayerAttack();
+        transform.localScale = new Vector2(3, 3);
+        if(playerAttacking != true)
+          playerAttacking = true;
+      }
+      if(playerAttacking == true)
+      {
+        attackingCounter++;
+        if(attackingCounter > 7)
+        {
+          playerAttacking = false;
+          transform.localScale = new Vector2(1, 1);
+          attackingCounter = 0;
+        }
       }
       if (horizontal != 0)
         vertical = 0;
@@ -64,6 +79,7 @@ public class Player : MovingObject
       food -= pointsPerAttack;
       foodText.text = "-" + pointsPerAttack + " Food: " + food;
       SoundManager.instance.PlaySingle(playerAttackSound);
+
       animator.SetTrigger("playerAttack");
       CheckIfGameOver();
       GameManager.instance.playersTurn = false;
