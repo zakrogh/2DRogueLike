@@ -11,11 +11,12 @@ public class Enemy : MovingObject
     private bool skipMove;
     public AudioClip attackSound1;
     public AudioClip attackSound2;
-    // Start is called before the first frame update
+
     public Enemy()
     {
         moveTime = 0.01f;
     }
+    // Start is called before the first frame update
     protected override void Start()
     {
       GameManager.instance.AddEnemyToList(this);
