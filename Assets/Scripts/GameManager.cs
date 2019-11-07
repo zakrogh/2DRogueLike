@@ -19,10 +19,7 @@ public class GameManager : MonoBehaviour {
 	public List<Enemy> enemies;
 	private bool enemiesMoving;
 	private bool doingSetup = true;
-	// public RingAttack ringAttack;
 
-
-	// Use this for initialization
 	void Awake () {
 		if (instance == null)
 			instance = this;
@@ -34,26 +31,6 @@ public class GameManager : MonoBehaviour {
 		boardScript = GetComponent<BoardManager>();
 		InitGame();
 	}
-	// private void OnLevelWasLoaded(int index)
-	// {
-	// 	 level++;
-	// 	 InitGame();
-	// }
-	// void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
-	// {
-	// 	level++;
-	// 	InitGame();
-	// }
-	// void OnEnable()
-	// {
-	// 	SceneManager.sceneLoaded += OnLevelFinishedLoading;
-	// }
-	// void OnDisable()
-	// {
-	// 	SceneManager.sceneLoaded -= OnLevelFinishedLoading;
-	// }
-	//this is called only once, and the paramter tell it to be called only after the scene was loaded
-//(otherwise, our Scene Load callback would be called the very first load, and we don't want that)
 [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
 static public void CallbackInitialization()
 {
