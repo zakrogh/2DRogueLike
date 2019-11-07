@@ -47,6 +47,10 @@ public class Enemy : MovingObject
 
       AttemptMove<Player> (xDir, yDir);
     }
+    public void DestroyThis()
+    {
+      Destroy(gameObject);
+    }
     protected override void OnCantMove <T> (T component)
     {
       Player hitPlayer = component as Player;

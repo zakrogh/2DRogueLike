@@ -9,7 +9,7 @@ public class Player : MovingObject
     public int pointsPerFood = 10;
     public int pointsPerSoda = 20;
     public int pointsPerAttack = 5;
-    public bool playerAttacking = true;
+    public bool playerUsedAttack = false;
     public int attackingCounter = 0;
     public float restartLevelDelay = 1f;
     public Text foodText;
@@ -32,7 +32,7 @@ public class Player : MovingObject
       food = GameManager.instance.playerFoodPoints;
 
       foodText.text = "Food: " + food;
-
+      playerUsedAttack = false;
       base.Start();
     }
 
@@ -53,20 +53,9 @@ public class Player : MovingObject
       vertical = (int) Input.GetAxisRaw("Vertical");
       if(Input.GetKeyDown(KeyCode.Space))
       {
-        PlayerAttack();
-      //   transform.localScale = new Vector2(3, 3);
-      //   if(playerAttacking != true)
-      //     playerAttacking = true;
-      // }
-      // if(playerAttacking == true)
-      // {
-      //   attackingCounter++;
-      //   if(attackingCounter > 7)
-      //   {
-      //     playerAttacking = false;
-      //     transform.localScale = new Vector2(1, 1);
-      //     attackingCounter = 0;
-      //   }
+        if(!playerUsedAttack)
+          PlayerAttack();
+
       }
       if (horizontal != 0)
         vertical = 0;
@@ -76,13 +65,40 @@ public class Player : MovingObject
     }
     public void PlayerAttack()
     {
+
+      FindObjectOfType<RingAttack>().FireAnimation();
+      DeleteEnemies();
+      playerUsedAttack = true;
       food -= pointsPerAttack;
       foodText.text = "-" + pointsPerAttack + " Food: " + food;
       SoundManager.instance.PlaySingle(playerAttackSound);
-      // GameManager.instance.ringAttack.FireAnimation(Vector3 test);
-      // animator.SetTrigger("playerAttack");
       CheckIfGameOver();
       GameManager.instance.playersTurn = false;
+    }
+    public void DeleteEnemies()
+    {
+      int posX = (int)transform.position.x - 1;
+      int posY = (int)transform.position.y - 1;
+
+      List<Enemy> enemies = GameManager.instance.enemies;
+
+      //for some reason it doesn't catch all enemies on a single pass
+      //  so I loop over the enemy list 10 times just to be sure
+      for(int j = 0; j < 10; j++)
+      {
+        for(int i = 0; i < enemies.Count;i++)
+        {
+
+          if(enemies[i].transform.position.x >= posX && enemies[i].transform.position.x < posX + 3)
+          {
+            if(enemies[i].transform.position.y >= posY && enemies[i].transform.position.y < posY + 3)
+            {
+              Destroy(enemies[i].gameObject);
+              enemies.RemoveAt(i);
+            }
+          }
+        }
+      }
     }
     protected override void AttemptMove<T> (int xDir, int yDir)
     {
