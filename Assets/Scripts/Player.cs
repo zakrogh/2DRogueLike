@@ -54,19 +54,19 @@ public class Player : MovingObject
       if(Input.GetKeyDown(KeyCode.Space))
       {
         PlayerAttack();
-        transform.localScale = new Vector2(3, 3);
-        if(playerAttacking != true)
-          playerAttacking = true;
-      }
-      if(playerAttacking == true)
-      {
-        attackingCounter++;
-        if(attackingCounter > 7)
-        {
-          playerAttacking = false;
-          transform.localScale = new Vector2(1, 1);
-          attackingCounter = 0;
-        }
+      //   transform.localScale = new Vector2(3, 3);
+      //   if(playerAttacking != true)
+      //     playerAttacking = true;
+      // }
+      // if(playerAttacking == true)
+      // {
+      //   attackingCounter++;
+      //   if(attackingCounter > 7)
+      //   {
+      //     playerAttacking = false;
+      //     transform.localScale = new Vector2(1, 1);
+      //     attackingCounter = 0;
+      //   }
       }
       if (horizontal != 0)
         vertical = 0;
@@ -74,13 +74,13 @@ public class Player : MovingObject
       if(horizontal != 0 || vertical != 0)
         AttemptMove<Wall> (horizontal, vertical);
     }
-    void PlayerAttack()
+    public void PlayerAttack()
     {
       food -= pointsPerAttack;
       foodText.text = "-" + pointsPerAttack + " Food: " + food;
       SoundManager.instance.PlaySingle(playerAttackSound);
-
-      animator.SetTrigger("playerAttack");
+      // GameManager.instance.ringAttack.FireAnimation(Vector3 test);
+      // animator.SetTrigger("playerAttack");
       CheckIfGameOver();
       GameManager.instance.playersTurn = false;
     }
