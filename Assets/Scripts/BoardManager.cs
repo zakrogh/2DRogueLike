@@ -26,6 +26,7 @@ public class BoardManager : MonoBehaviour
     public Count wallCount = new Count (35, 55);                        //Lower and upper limit for our random number of walls per level.
     public Count foodCount = new Count (10, 15);                        //Lower and upper limit for our random number of food items per level.
     public GameObject exit;                                            //Prefab to spawn for exit.
+    public GameObject ringAttack;
     public GameObject[] floorTiles;                                    //Array of floor prefabs.
     public GameObject[] wallTiles;                                    //Array of wall prefabs.
     public GameObject[] foodTiles;                                    //Array of food prefabs.
@@ -144,6 +145,10 @@ public class BoardManager : MonoBehaviour
 
         //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
         LayoutObjectAtRandom (enemyTiles, enemyCount, enemyCount);
+
+        //Instantiate the ring attack object
+        Instantiate(ringAttack, new Vector3(0, 0, 0f), Quaternion.identity);
+
 
         //Instantiate the exit tile in the upper right hand corner of our game board
         Instantiate (exit, new Vector3 (columns - 1, rows - 1, 0f), Quaternion.identity);

@@ -17,11 +17,11 @@ public class RingAttack : MonoBehaviour
     void Update()
     {
       if(Input.GetKeyDown(KeyCode.Space))
+      {
+        Transform pos = GameObject.FindGameObjectWithTag("Player").transform;
+        transform.position = pos.position;
         animator.SetTrigger("ringAttack");
+      }
     }
-    // public void FireAnimation(Vector3 coords)
-    // {
-    //   animator.SetTrigger("ringAttack");
-    // }
 
 }

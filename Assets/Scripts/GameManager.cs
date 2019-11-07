@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 	private List<Enemy> enemies;
 	private bool enemiesMoving;
 	private bool doingSetup = true;
-	public RingAttack ringAttack;
+	// public RingAttack ringAttack;
 
 
 	// Use this for initialization
@@ -70,7 +70,7 @@ static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
 
 	void InitGame() {
 		doingSetup = true;
-	  ringAttack = GetComponent<RingAttack>();
+	  // ringAttack = GetComponent<RingAttack>();
 		levelImage = GameObject.Find("LevelImage");
 		levelText = GameObject.Find("LevelText").GetComponent<Text>();
 		levelText.text = "Day " + level;

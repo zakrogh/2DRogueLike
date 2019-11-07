@@ -79,8 +79,6 @@ public class Player : MovingObject
       food -= pointsPerAttack;
       foodText.text = "-" + pointsPerAttack + " Food: " + food;
       SoundManager.instance.PlaySingle(playerAttackSound);
-      // GameManager.instance.ringAttack.FireAnimation(Vector3 test);
-      // animator.SetTrigger("playerAttack");
       CheckIfGameOver();
       GameManager.instance.playersTurn = false;
     }
