@@ -16,12 +16,13 @@ public class RingAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      if(Input.GetKeyDown(KeyCode.Space))
-        animator.SetTrigger("ringAttack");
     }
-    // public void FireAnimation(Vector3 coords)
-    // {
-    //   animator.SetTrigger("ringAttack");
-    // }
+
+    public void FireAnimation()
+    {
+      Transform pos = GameObject.FindGameObjectWithTag("Player").transform;
+      transform.position = pos.position;
+      animator.SetTrigger("ringAttack");
+    }
 
 }
